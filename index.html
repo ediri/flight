@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>FlugApp</title>
+
+    <!-- Bootstrap -->
+    <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <link href="styles.css" rel="stylesheet"></link>
+    <script src="dist/vendor.js"></script>
+    <script src="dist/app.js"></script>
+
+</head>
+
+<body ng-app="flight-app" ng-controller="flightSearch as vm">
+
+<div class="container">
+
+    <h1 class="text-center">Flight Search!</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <form name="form" novalidate>
+                <div class="form-group">
+                    <label>From:</label>
+                    <input
+                            name="from"
+                            class="form-control"
+                            ng-model="vm.from"
+                            required
+                            minlength="3"
+                            maxlength="30">
+                </div>
+                <div class="alert" ng-if="form.from.$invalid" ng-class="{'alert-danger':form.from.$invalid || form.from.$error.required || form.from.$error.minlength || form.from.$error.maxlength }" role="alert">
+                    <div ng-if="form.from.$invalid">
+                        From is invalid!
+                    </div>
+                    <div ng-if="form.from.$error.required">
+                        Required!
+                    </div>
+
+                    <div ng-if="form.from.$error.minlength">
+                        MinLength!
+                    </div>
+
+                    <div ng-if="form.from.$error.maxlength">
+                        MaxLength!
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label>To:</label>
+                    <input class="form-control" ng-model="vm.to">
+                </div>
+                <div class="form-group">
+                    <button
+                            ng-disabled="form.$invalid"
+                            class="btn btn-primary"
+                            ng-click="vm.search()">Search!</button>
+                </div>
+            </form>
+            <table ng-show="vm.flights.length > 0" class="table table-striped">
+                <tr ng-repeat="f in vm.flights" ng-class="{ active: f === vm.selectedFlight }">
+                    <td>{{f.id}}</td>
+                    <td>{{f.from | city:'short'}}</td>
+                    <td>{{f.to | city:'long'}}</td>
+                    <td>{{f.date | date:'short'}}</td>
+                    <td><a href="" ng-click="vm.select(f)">Select!</a></td>
+                </tr>
+            </table>
+            <pre>Warenkorb
+----------------------
+{{vm.selectedFlight | json }}
+</pre>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Passenger:</label>
+                <input class="form-control" ng-model="vm.passengerName">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" ng-click="vm.findPassenger()">Search!</button>
+            </div>
+            <table ng-show="vm.passengers.length > 0" class="table table-striped">
+                <tr ng-repeat="f in vm.passengers" ng-class="{ active: f === vm.selectedPassenger }">
+                    <td>{{f.id}}</td>
+                    <td>{{f.firstName}}</td>
+                    <td>{{f.name}}</td>
+                    <td>{{f.passengerStatus | passengerStatus:'long'}}</td>
+                    <td><a href="" ng-click="vm.selectPassenger(f)">Select!</a></td>
+                </tr>
+            </table>
+            <pre>Passagier
+----------------------
+{{vm.selectedPassenger | json }}
+</pre>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>

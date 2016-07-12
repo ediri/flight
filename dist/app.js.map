@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./app/app.ts"],"names":[],"mappings":";;;;;AAAC,KAAY,OAAO,uBAAM,CAAS,CAAC;AAEzB,YAAG,GAAG,OAAO,CAAC,MAAM,CAAC,YAAY,EAAE,EAAE,CAAC,CAAC","file":"app.js","sourcesContent":["import * as angular from 'angular';\r\n\r\nexport var app = angular.module('flight-app', []);\r\n\r\n\r\n\n\n\n/** WEBPACK FOOTER **\n ** ./app/app.ts\n **/"],"sourceRoot":""}
